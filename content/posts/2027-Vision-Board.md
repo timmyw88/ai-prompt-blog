@@ -43,7 +43,7 @@ cover: "/media/2027-Vision-Board.png"
 coverAlt: "Personalised 2027 Vision Board created with a photo using ChatGPT"
 
 # Optional. A full YouTube link, or leave blank.
-videoUrl: "https://www.youtube.com/watch?v=qQm5S3Nvx9M"
+videoUrl: "https://youtube.com/shorts/PmcIMtN8-eI"
 
 steps:
   - title: “Upload your photo”
