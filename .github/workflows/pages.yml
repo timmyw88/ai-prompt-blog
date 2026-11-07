@@ -29,15 +29,8 @@ jobs:
 
       - name: Set the site URL and base path
         run: |
-          set -euo pipefail
-          owner="${GITHUB_REPOSITORY_OWNER}"
-          repo="${GITHUB_REPOSITORY#*/}"
-          echo "SITE=https://${owner}.github.io" >> "$GITHUB_ENV"
-          if [ "$repo" = "${owner}.github.io" ]; then
-            echo "BASE_PATH=/" >> "$GITHUB_ENV"
-          else
-            echo "BASE_PATH=/${repo}" >> "$GITHUB_ENV"
-          fi
+          echo "SITE=https://ethanprompts.online" >> "$GITHUB_ENV"
+          echo "BASE_PATH=/" >> "$GITHUB_ENV"
 
       - name: Install
         run: npm ci
