@@ -26,8 +26,8 @@ test('links allow http(s), mailto, and relative URLs only', () => {
 test('base joining covers user sites and project sites', () => {
   assert.equal(joinBase('/', '/'), '/');
   assert.equal(joinBase('/', 'guide/'), '/guide/');
-  assert.equal(joinBase('/prompt-ledger', '/media/a.svg'), '/prompt-ledger/media/a.svg');
-  assert.equal(joinBase('/prompt-ledger/', 'posts/cup/'), '/prompt-ledger/posts/cup/');
+  assert.equal(joinBase('/ai-prompt-blog', '/media/a.png'), '/ai-prompt-blog/media/a.png');
+  assert.equal(joinBase('/ai-prompt-blog/', 'posts/tutorial/'), '/ai-prompt-blog/posts/tutorial/');
   assert.equal(joinBase('/', 'https://example.com'), 'https://example.com');
 });
 

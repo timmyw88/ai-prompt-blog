@@ -17,8 +17,8 @@ run('node', ['--experimental-strip-types', '--test', ...tests]);
 run('npm', ['run', 'build']);
 run('node', ['scripts/verify-dist.mjs', '--base', '/']);
 run('npm', ['run', 'build'], {
-  BASE_PATH: '/prompt-ledger',
+  BASE_PATH: '/ai-prompt-blog',
   SITE: 'https://example.github.io',
 });
-run('node', ['scripts/verify-dist.mjs', '--base', '/prompt-ledger/']);
+run('node', ['scripts/verify-dist.mjs', '--base', '/ai-prompt-blog/']);
 run('npm', ['run', 'build']);

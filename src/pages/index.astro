@@ -15,12 +15,9 @@ const indexJson = JSON.stringify(records).replace(/</g, '\\u003c');
 ---
 
 <Base title="Tutorials" description={site.description} wide>
-  <p class="kicker">Template archive</p>
+  <p class="kicker">{site.tagline}</p>
   <h1>Tutorials</h1>
-  <p class="lede">
-    Search prompts, tools, and numbered steps. The posts here are labelled examples shipped with the template, not
-    lessons from the site owner.
-  </p>
+  <p class="lede">Search prompts, tools, and numbered steps.</p>
   {
     posts.length === 0 ? (
       <div class="empty">
@@ -43,7 +40,7 @@ const indexJson = JSON.stringify(records).replace(/</g, '\\u003c');
                 id="tutorial-search"
                 type="search"
                 name="q"
-                placeholder="Try window, ceramic, or a tool name"
+                placeholder="Search prompts, tools, or topics"
                 enterkeyhint="search"
               />
             </label>

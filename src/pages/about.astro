@@ -3,24 +3,13 @@ import Base from '../layouts/Base.astro';
 import { site } from '../lib/site';
 ---
 
-<Base title="About" description={`About ${site.title}. Replace this page before you publish.`}>
+<Base title="About" description={`About ${site.title}.`}>
   <h1>About</h1>
-  <aside class="edit-callout">
-    <p>
-      <strong>Edit this page before you publish.</strong> It is a placeholder, not a description of a real teacher.
-      The file is <code>src/pages/about.astro</code>.
-    </p>
-  </aside>
   <div class="prose">
     <p>
-      Put your name here. Say what you teach, and where people already watch you. You can also add your YouTube,
-      Facebook, and GitHub links in <code>site.config.json</code> so they show in the header and footer.
+      {site.title} is a public archive of image and video workflows. Each tutorial keeps the prompt, the settings,
+      and the numbered steps in one place.
     </p>
-    <p>
-      This site is a public archive of prompts and numbered steps. Viewers can search it. They do not create an
-      account, and there is no dashboard in this template.
-    </p>
-    <p>The author name in the template is “{site.author}”. Change that before you rely on it.</p>
-    <p>Delete these paragraphs and write in your own voice.</p>
+    <p>Viewers can search the archive and copy a prompt. There is no account and no sign-in.</p>
   </div>
 </Base>

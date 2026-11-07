@@ -3,32 +3,18 @@ import Base from '../layouts/Base.astro';
 import { site } from '../lib/site';
 ---
 
-<Base
-  title="Privacy"
-  description="Privacy notes for this template. Edit them before you publish. This is not legal advice."
->
+<Base title="Privacy" description={`Privacy notes for ${site.title}. This is not legal advice.`}>
   <h1>Privacy</h1>
-  <aside class="edit-callout">
-    <p>
-      <strong>Edit this page before you publish.</strong> It is a starting point, not legal advice, and it is not a
-      claim that any ad network has approved the site. The file is <code>src/pages/privacy.astro</code>.
-    </p>
-  </aside>
   <div class="prose">
-    <h2>Who publishes this</h2>
-    <p>
-      Replace this with your name and how to reach you. The template author field currently says “{site.author}”.
-      Do not invent an email address.
-    </p>
-    <h2>What this template does</h2>
+    <h2>What this site does</h2>
     <p>
       The pages are built ahead of time from Markdown files. There is no account, no sign-in, and no database. The
-      template does not ship an analytics script or an advertising script.
+      site does not include an analytics script or an advertising script.
     </p>
     <h2>Hosting</h2>
     <p>
-      When you turn on GitHub Pages, GitHub serves the built files. This page does not describe GitHub’s own privacy
-      terms. Read those on GitHub and change this section if you host the files somewhere else.
+      When GitHub Pages is turned on, GitHub serves the built files. This page does not describe GitHub’s own privacy
+      terms. Read those on GitHub, and change this section if the files are hosted somewhere else.
     </p>
     <h2>Public repository</h2>
     <p>
@@ -43,13 +29,12 @@ import { site } from '../lib/site';
     <h2>Ads</h2>
     <p>
       <code>ads.enabled</code> is {site.ads.enabled ? 'true' : 'false'}. While it is false, no ad slot is shown and no
-      publisher ID is included. This template does not claim approval from any ad network. If you later paste your
-      own ad snippet, rewrite this section and keep only an ID that belongs to you.
+      publisher ID is included. This site does not claim approval from any ad network.
     </p>
     <h2>Search</h2>
     <p>
       The archive filter runs in the visitor’s browser on a list built with the site. It is not sent to a search
-      company by this template.
+      company by this site.
     </p>
   </div>
 </Base>
