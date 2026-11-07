@@ -4,7 +4,7 @@
   "description": "A public archive of image and video workflows, with the prompts, settings, and numbered steps in one place. Replace this sentence in site.config.json.",
   "author": "Your name",
   "locale": "en",
-  "brandingNotice": true,
+  "brandingNotice": false,
   "site": "https://example.github.io",
   "base": "/",
   "social": {
