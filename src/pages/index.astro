@@ -15,12 +15,6 @@ const indexJson = JSON.stringify(records).replace(/</g, '\\u003c');
 ---
 
 <Base title="Tutorials" description={site.description} wide>
-  <p class="kicker">Template archive</p>
-  <h1>Tutorials</h1>
-  <p class="lede">
-    Search prompts, tools, and numbered steps. The posts here are labelled examples shipped with the template, not
-    lessons from the site owner.
-  </p>
   {
     posts.length === 0 ? (
       <div class="empty">
