@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img">
+  <title>Example illustration of a ceramic cup on linen</title>
+  <rect width="1200" height="900" fill="#efe6d8"/>
+  <rect y="500" width="1200" height="400" fill="#d7c2a4"/>
+  <ellipse cx="620" cy="560" rx="340" ry="48" fill="#c9b196"/>
+  <path d="M300 540c90 50 180 10 260-30 90 60 180 80 280 20l50 200H260z" fill="#e7dccb"/>
+  <path d="M500 390h200l-24 210H524z" fill="#f7f4ee" stroke="#1c1915" stroke-width="8"/>
+  <path d="M700 450c80 8 100 60 70 100" fill="none" stroke="#1c1915" stroke-width="8" stroke-linecap="round"/>
+  <ellipse cx="600" cy="390" rx="100" ry="24" fill="#d5ebe4" stroke="#1c1915" stroke-width="8"/>
+  <g font-family="Source Sans 3, sans-serif" font-size="28" font-weight="600">
+    <rect x="48" y="48" width="156" height="48" rx="24" fill="#fffdf8" stroke="#1c1915" stroke-width="3"/>
+    <text x="72" y="80" fill="#1c1915">Example</text>
+  </g>
+</svg>

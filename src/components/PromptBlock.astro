@@ -1,0 +1,27 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  text: string;
+}
+
+const { id, label, text } = Astro.props;
+---
+
+<div class="prompt" data-copy-ready="true">
+  <div class="prompt-bar">
+    <h3 id={`${id}-label`}>{label}</h3>
+    <button
+      type="button"
+      class="copy-button"
+      data-copy-for={id}
+      data-copy-name={label.toLowerCase()}
+      data-state="idle"
+      aria-label={`Copy ${label.toLowerCase()}`}
+    >
+      Copy
+    </button>
+  </div>
+  <pre class="prompt-pre"><code id={id} data-copy-mode="exact">{text}</code></pre>
+  <p class="copy-status" data-copy-status-for={id} role="status"></p>
+</div>

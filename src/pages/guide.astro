@@ -1,0 +1,19 @@
+---
+import { markdownToHtml } from 'satteri';
+import source from '../../GUIDE.md?raw';
+import Base from '../layouts/Base.astro';
+import { createSanitizePlugin } from '../lib/sanitize-markdown';
+const rendered = await markdownToHtml(source, {
+  hastPlugins: [createSanitizePlugin(import.meta.env.BASE_URL)],
+  features: { gfm: true, smartPunctuation: false },
+});
+---
+
+<Base
+  title="Add a tutorial on GitHub"
+  description="How to add a tutorial by editing a Markdown file on the GitHub website. No dashboard and no database."
+>
+  <div class="prose">
+    <Fragment set:html={rendered.html} />
+  </div>
+</Base>

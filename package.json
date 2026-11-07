@@ -1,0 +1,25 @@
+{
+  "name": "prompt-ledger",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1 --port 4731",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1 --port 4731",
+    "test": "node scripts/test-all.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource/source-sans-3": "^5.3.1",
+    "@fontsource/source-serif-4": "^5.3.1",
+    "astro": "^7.4.7"
+  },
+  "devDependencies": {
+    "gray-matter": "^4.0.3",
+    "satteri": "^0.11.6"
+  }
+}

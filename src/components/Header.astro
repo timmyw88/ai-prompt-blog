@@ -1,0 +1,51 @@
+---
+import { monogram, site, socialLinks } from '../lib/site';
+import { isCurrentPath, pageHref } from '../lib/urls';
+
+const pathname = Astro.url.pathname;
+const items = [
+  { href: pageHref(''), label: 'Archive' },
+  { href: pageHref('guide'), label: 'Guide' },
+  { href: pageHref('about'), label: 'About' },
+  { href: pageHref('privacy'), label: 'Privacy' },
+];
+const social = socialLinks();
+---
+
+<header class="site-header">
+  <div class="wrap header-bar">
+    <a class="brand" href={pageHref('')}>
+      <span class="mark" aria-hidden="true">{monogram(site.title)}</span>
+      <span>
+        <span class="brand-name">{site.title}</span>
+        <span class="brand-tag">{site.tagline}</span>
+      </span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-list">
+        {
+          items.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isCurrentPath(pathname, item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    {
+      social.length > 0 && (
+        <ul class="social-list" aria-label="Social">
+          {social.map((link) => (
+            <li>
+              <a href={link.href} rel="me">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</header>

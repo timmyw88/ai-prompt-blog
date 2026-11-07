@@ -1,0 +1,88 @@
+---
+import '@fontsource/source-sans-3/latin-400.css';
+import '@fontsource/source-sans-3/latin-600.css';
+import '@fontsource/source-serif-4/latin-500.css';
+import '@fontsource/source-serif-4/latin-600.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../lib/site';
+import { absoluteFromPathname, absoluteUrl, pageHref, withBase } from '../lib/urls';
+import { isRasterPath } from '../lib/paths';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  wide?: boolean;
+  ogType?: 'website' | 'article';
+  published?: Date;
+  updated?: Date;
+  jsonLd?: Record<string, unknown>;
+}
+
+const {
+  title,
+  description,
+  image,
+  wide = false,
+  ogType = 'website',
+  published,
+  updated,
+  jsonLd,
+} = Astro.props;
+const fullTitle = `${title} — ${site.title}`;
+const canonical = absoluteFromPathname(Astro.url.pathname);
+const imageUrl = image && isRasterPath(image) ? absoluteUrl(image) : '';
+const json = jsonLd ? JSON.stringify(jsonLd).replace(/</g, '\\u003c') : '';
+---
+
+<!doctype html>
+<html lang={site.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#f3efe6" />
+    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title={`${site.title} RSS`} href={absoluteUrl('rss.xml')} />
+    <link rel="sitemap" href={absoluteUrl('sitemap.xml')} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.title} />
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+    {published && <meta property="article:published_time" content={published.toISOString()} />}
+    {updated && <meta property="article:modified_time" content={updated.toISOString()} />}
+    <meta name="twitter:card" content={imageUrl ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+    {json && <script type="application/ld+json" is:inline set:html={json} />}
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    <Header />
+    {
+      site.brandingNotice && (
+        <div class="notice">
+          <p class="wrap">
+            Provisional branding. Change the name, description, and links in <code>site.config.json</code> before
+            you treat this as your site. <a href={pageHref('guide')}>How to edit</a>.
+          </p>
+        </div>
+      )
+    }
+    <main id="content" class:list={['wrap', { narrow: !wide }]}>
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/copy-buttons';
+    </script>
+  </body>
+</html>

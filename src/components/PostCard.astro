@@ -1,0 +1,55 @@
+---
+import { categoryLabel, formatDate, isoDate } from '../lib/format';
+import { pageHref, withBase } from '../lib/urls';
+import type { Post } from '../lib/posts';
+
+interface Props {
+  post: Post;
+  eager?: boolean;
+}
+
+const { post, eager = false } = Astro.props;
+const data = post.data;
+---
+
+<article class="card">
+  <a class="card-link" href={pageHref(`posts/${post.id}`)}>
+    <div class="card-media">
+      {
+        data.cover ? (
+          <img
+            src={withBase(data.cover)}
+            alt={data.coverAlt ?? ''}
+            loading={eager ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+        ) : (
+          <div class="cover-fallback" aria-hidden="true">
+            {categoryLabel(data.category)}
+          </div>
+        )
+      }
+    </div>
+    <div class="card-body">
+      <p class="badges">
+        {data.example && <span class="badge badge-example">Example</span>}
+        <span class="badge">{categoryLabel(data.category)}</span>
+      </p>
+      <h2>{data.title}</h2>
+      <p class="summary">{data.summary}</p>
+    </div>
+  </a>
+  <p class="card-meta">
+    <time datetime={isoDate(data.date)}>{formatDate(data.date)}</time>
+    <span> · {data.tool}</span>
+  </p>
+  {
+    data.tags.length > 0 && (
+      <ul class="tag-list" aria-label="Topics">
+        {data.tags.map((tag) => (
+          <li>{tag}</li>
+        ))}
+      </ul>
+    )
+  }
+</article>

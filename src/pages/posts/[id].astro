@@ -1,0 +1,228 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import PromptBlock from '../../components/PromptBlock.astro';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import { categoryLabel, formatDate, isoDate } from '../../lib/format';
+import { getPublishedPosts, relatedTo } from '../../lib/posts';
+import { site } from '../../lib/site';
+import { absoluteUrl, pageHref, withBase } from '../../lib/urls';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post, posts },
+  }));
+}
+
+const { post, posts } = Astro.props;
+const data = post.data;
+const hasNotes = Boolean(post.body?.trim());
+const rendered = hasNotes ? await render(post) : null;
+const Content = rendered?.Content;
+const related = relatedTo(post, posts);
+const pageUrl = absoluteUrl(`posts/${post.id}/`);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: data.title,
+  description: data.summary,
+  datePublished: data.date.toISOString(),
+  dateModified: (data.updated ?? data.date).toISOString(),
+  author: {
+    '@type': 'Person',
+    name: site.author,
+  },
+  mainEntityOfPage: pageUrl,
+};
+---
+
+<Base
+  title={data.title}
+  description={data.summary}
+  image={data.cover}
+  ogType="article"
+  published={data.date}
+  updated={data.updated}
+  jsonLd={jsonLd}
+>
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href={pageHref('')}>Archive</a></li>
+      <li aria-current="page">{data.title}</li>
+    </ol>
+  </nav>
+  {
+    data.example && (
+      <p class="example-banner">
+        <strong>Example tutorial.</strong> Sample prompts and steps shipped with this template. Not a lesson from the
+        site owner.
+      </p>
+    )
+  }
+  <p class="badges">
+    {data.example && <span class="badge badge-example">Example</span>}
+    <span class="badge">{categoryLabel(data.category)}</span>
+  </p>
+  <h1>{data.title}</h1>
+  <p class="lede">{data.summary}</p>
+  <p class="meta">
+    <time datetime={isoDate(data.date)}>Published {formatDate(data.date)}</time>
+    {
+      data.updated && (
+        <>
+          {' '}
+          · <time datetime={isoDate(data.updated)}>Updated {formatDate(data.updated)}</time>
+        </>
+      )
+    }
+    {' '}· {data.tool}
+    {data.model && ` · Model ${data.model}`}
+  </p>
+  {
+    data.tags.length > 0 && (
+      <ul class="tag-list" aria-label="Topics">
+        {data.tags.map((tag) => (
+          <li>{tag}</li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    data.cover && (
+      <figure class="post-cover">
+        <img src={withBase(data.cover)} alt={data.coverAlt ?? ''} decoding="async" />
+      </figure>
+    )
+  }
+  {
+    data.videoUrl && (
+      <section aria-labelledby="video-heading">
+        <h2 id="video-heading">Video</h2>
+        <VideoEmbed url={data.videoUrl} title={`Video: ${data.title}`} />
+        <p class="meta">
+          The player loads from youtube-nocookie.com because this tutorial includes a video link. Replace that link
+          with your own, or delete it.
+        </p>
+      </section>
+    )
+  }
+  {
+    data.steps.length > 0 && (
+      <section aria-labelledby="steps-heading">
+        <h2 id="steps-heading">Steps</h2>
+        <ol class="steps">
+          {data.steps.map((step) => (
+            <li>
+              <div class="step-copy">
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )
+  }
+  {
+    (data.positivePrompt || data.negativePrompt) && (
+      <section aria-labelledby="prompts-heading">
+        <h2 id="prompts-heading">Prompts</h2>
+        {data.positivePrompt && (
+          <PromptBlock id="positive-prompt" label="Positive prompt" text={data.positivePrompt} />
+        )}
+        {data.negativePrompt && (
+          <PromptBlock id="negative-prompt" label="Negative prompt" text={data.negativePrompt} />
+        )}
+      </section>
+    )
+  }
+  {
+    data.settings.length > 0 && (
+      <section aria-labelledby="settings-heading">
+        <h2 id="settings-heading">Settings</h2>
+        <table class="settings">
+          <caption class="sr-only">Settings recorded for this tutorial</caption>
+          <tbody>
+            {data.settings.map((setting) => (
+              <tr>
+                <th scope="row">{setting.label}</th>
+                <td>{setting.value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    )
+  }
+  {
+    data.tips.length > 0 && (
+      <section aria-labelledby="tips-heading">
+        <h2 id="tips-heading">Tips</h2>
+        <ul class="tips">
+          {data.tips.map((tip) => (
+            <li>{tip}</li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+  {
+    data.results.length > 0 && (
+      <section aria-labelledby="results-heading">
+        <h2 id="results-heading">Result media</h2>
+        <div class="result-grid">
+          {data.results.map((result) => (
+            <figure>
+              {result.kind === 'video' ? (
+                <video controls preload="metadata" src={withBase(result.src)}>
+                  <p>
+                    This browser cannot play the clip. <a href={withBase(result.src)}>Download it</a>.
+                  </p>
+                </video>
+              ) : (
+                <img src={withBase(result.src)} alt={result.alt} loading="lazy" decoding="async" />
+              )}
+              <figcaption>
+                {result.alt}
+                {result.caption ? ` ${result.caption}` : ''}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+    )
+  }
+  {
+    hasNotes && Content && (
+      <section aria-labelledby="notes-heading">
+        <h2 id="notes-heading">Notes</h2>
+        <div class="prose">
+          <Content />
+        </div>
+      </section>
+    )
+  }
+  {
+    related.length > 0 && (
+      <section aria-labelledby="related-heading">
+        <h2 id="related-heading">Related tutorials</h2>
+        <ul class="related">
+          {related.map((item) => (
+            <li>
+              <a href={pageHref(`posts/${item.id}`)}>
+                {item.data.example && <span class="badge badge-example">Example</span>}
+                <span class="badge">{categoryLabel(item.data.category)}</span>
+                <span class="related-title">{item.data.title}</span>
+                <span class="meta">{item.data.tool}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+  <AdSlot />
+</Base>

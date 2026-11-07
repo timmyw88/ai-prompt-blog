@@ -1,0 +1,109 @@
+---
+import { site } from '../lib/site';
+import { getPublishedPosts } from '../lib/posts';
+import { toSearchRecord } from '../lib/search';
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+import AdSlot from '../components/AdSlot.astro';
+import { pageHref } from '../lib/urls';
+
+const posts = await getPublishedPosts();
+const records = posts.map((post) =>
+  toSearchRecord({ id: post.id, body: post.body, data: post.data }),
+);
+const indexJson = JSON.stringify(records).replace(/</g, '\\u003c');
+---
+
+<Base title="Tutorials" description={site.description} wide>
+  <p class="kicker">Template archive</p>
+  <h1>Tutorials</h1>
+  <p class="lede">
+    Search prompts, tools, and numbered steps. The posts here are labelled examples shipped with the template, not
+    lessons from the site owner.
+  </p>
+  {
+    posts.length === 0 ? (
+      <div class="empty">
+        <h2>No tutorials yet</h2>
+        <p>
+          Copy <code>templates/new-post.md</code> into <code>content/posts</code>, fill it in, and set{' '}
+          <code>draft</code> to <code>false</code> when you want it on the site.
+        </p>
+        <p>
+          <a href={pageHref('guide')}>Read the editing guide</a>.
+        </p>
+      </div>
+    ) : (
+      <>
+        <form class="search-panel" data-archive-form role="search" aria-label="Filter tutorials">
+          <div class="filters">
+            <label class="field">
+              Search
+              <input
+                id="tutorial-search"
+                type="search"
+                name="q"
+                placeholder="Try window, ceramic, or a tool name"
+                enterkeyhint="search"
+              />
+            </label>
+            <fieldset>
+              <legend>Format</legend>
+              <div class="format-toggle">
+                <button type="button" data-category="" aria-pressed="true">
+                  All
+                </button>
+                <button type="button" data-category="image" aria-pressed="false">
+                  Image
+                </button>
+                <button type="button" data-category="video" aria-pressed="false">
+                  Video
+                </button>
+              </div>
+            </fieldset>
+            <label class="field">
+              Tool
+              <select id="tool-filter" name="tool">
+                <option value="">All tools</option>
+              </select>
+            </label>
+            <label class="field">
+              Topic
+              <select id="topic-filter" name="topic">
+                <option value="">All topics</option>
+              </select>
+            </label>
+            <div class="filter-actions">
+              <button type="button" class="text-button" id="clear-filters">Clear filters</button>
+            </div>
+          </div>
+        </form>
+        <p id="result-count" class="result-count" aria-live="polite">
+          {posts.length === 1 ? '1 tutorial' : `${posts.length} tutorials`}
+        </p>
+        <p id="search-error" class="empty" hidden>
+          Search could not be loaded. Every published tutorial is listed below.
+        </p>
+        <div id="empty-results" class="empty" hidden>
+          <h2>No tutorials match</h2>
+          <p>Nothing in the archive uses those words or filters. Clear them and try a shorter word, or a tool name.</p>
+        </div>
+        <ul class="cards" id="tutorial-list">
+          {posts.map((post, index) => (
+            <li data-id={post.id}>
+              <PostCard post={post} eager={index === 0} />
+            </li>
+          ))}
+        </ul>
+        <script id="archive-index" type="application/json" is:inline set:html={indexJson} />
+        <script>
+          import '../scripts/archive-filters';
+        </script>
+        <noscript>
+          <p>Search and filters need JavaScript. All published tutorials are listed above, and each prompt can still be selected and copied by hand.</p>
+        </noscript>
+      </>
+    )
+  }
+  <AdSlot />
+</Base>

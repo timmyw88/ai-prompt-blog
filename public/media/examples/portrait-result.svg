@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img">
+  <title>Example result illustration, closer crop</title>
+  <rect width="800" height="1000" fill="#f6efe4"/>
+  <rect x="0" y="0" width="220" height="1000" fill="#d7ebe6"/>
+  <rect x="104" y="0" width="8" height="1000" fill="#1c1915"/>
+  <circle cx="470" cy="360" r="110" fill="#e6b896"/>
+  <path d="M360 320c30-130 190-130 220-10 10 40-20 100-50 120-60 20-140 10-170-110z" fill="#3a2a24"/>
+  <path d="M250 620c40-150 130-200 230-200h40c120 0 190 110 210 250v330H250V700c0-40-8-50 0-80z" fill="#8d4e32"/>
+  <g font-family="Source Sans 3, sans-serif" font-size="28" font-weight="600">
+    <rect x="500" y="900" width="156" height="48" rx="24" fill="#fffdf8" stroke="#1c1915" stroke-width="3"/>
+    <text x="524" y="932" fill="#1c1915">Example</text>
+  </g>
+</svg>

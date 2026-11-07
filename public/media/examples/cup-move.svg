@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img">
+  <title>Example illustration of a slow camera move toward a cup</title>
+  <rect width="1600" height="900" fill="#efe6d8"/>
+  <rect y="520" width="1600" height="380" fill="#d7c2a4"/>
+  <path d="M180 250c80 20 120 80 80 140" fill="none" stroke="#0d4f45" stroke-width="10" stroke-linecap="round"/>
+  <path d="M250 360l40-20-10 36z" fill="#0d4f45"/>
+  <rect x="120" y="180" width="90" height="60" rx="8" fill="#1c1915"/>
+  <circle cx="165" cy="210" r="16" fill="#f3efe6"/>
+  <ellipse cx="980" cy="560" rx="360" ry="46" fill="#c9b196"/>
+  <path d="M760 540c80 40 160 8 230-24 80 50 150 70 240 16l40 180H730z" fill="#e7dccb"/>
+  <path d="M900 400h180l-22 190H922z" fill="#f7f4ee" stroke="#1c1915" stroke-width="8"/>
+  <path d="M1080 460c70 8 90 54 62 90" fill="none" stroke="#1c1915" stroke-width="8" stroke-linecap="round"/>
+  <ellipse cx="990" cy="400" rx="90" ry="22" fill="#d5ebe4" stroke="#1c1915" stroke-width="8"/>
+  <g font-family="Source Sans 3, sans-serif" font-size="28" font-weight="600">
+    <rect x="48" y="48" width="156" height="48" rx="24" fill="#fffdf8" stroke="#1c1915" stroke-width="3"/>
+    <text x="72" y="80" fill="#1c1915">Example</text>
+  </g>
+</svg>

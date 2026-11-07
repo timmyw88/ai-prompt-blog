@@ -1,0 +1,25 @@
+---
+import { site } from '../lib/site';
+
+/**
+ * Ads are off unless site.config.json sets ads.enabled to true.
+ * This file ships no ad script, no publisher ID, and no claim that an ad
+ * network has approved the site. When you have your own account, paste only
+ * your snippet below and describe it on the privacy page.
+ */
+---
+
+{
+  site.ads.enabled && (
+    <aside class="ad-slot" aria-label="Advertisement">
+      <p>
+        <strong>Ad slot is on, and this template still has no ad code.</strong>
+      </p>
+      <p>
+        Paste a snippet from your own ad account into <code>src/components/AdSlot.astro</code>. This project does not
+        include a publisher ID and does not claim that any ad network has approved the site. Leave{' '}
+        <code>ads.enabled</code> false until that snippet is yours, and update the privacy page when you do.
+      </p>
+    </aside>
+  )
+}

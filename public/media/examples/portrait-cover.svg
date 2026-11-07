@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img">
+  <title>Example illustration of a person beside a window</title>
+  <rect width="800" height="1000" fill="#efe4d4"/>
+  <rect x="48" y="64" width="280" height="700" rx="10" fill="#f7f3ea" stroke="#1c1915" stroke-width="8"/>
+  <rect x="72" y="92" width="232" height="300" fill="#d5ebe4"/>
+  <rect x="72" y="408" width="232" height="312" fill="#c5ddd4"/>
+  <rect x="180" y="92" width="8" height="628" fill="#1c1915"/>
+  <rect x="72" y="392" width="232" height="8" fill="#1c1915"/>
+  <circle cx="540" cy="390" r="78" fill="#e6b896"/>
+  <path d="M470 360c20-90 130-90 150-10 8 30-8 70-30 86-40 12-100 8-120-76z" fill="#3a2a24"/>
+  <path d="M400 560c30-110 90-140 160-140h30c90 0 140 80 150 180v230H410V620c0-30-8-40-10-60z" fill="#8d4e32"/>
+  <rect x="0" y="860" width="800" height="140" fill="#e3d2b8"/>
+  <g font-family="Source Sans 3, sans-serif" font-size="28" font-weight="600">
+    <rect x="48" y="900" width="156" height="48" rx="24" fill="#fffdf8" stroke="#1c1915" stroke-width="3"/>
+    <text x="72" y="932" fill="#1c1915">Example</text>
+  </g>
+</svg>

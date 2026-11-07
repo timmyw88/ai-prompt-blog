@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { pageHref } from '../lib/urls';
+---
+
+<Base title="Page not found" description="That page is not in this archive.">
+  <h1>Page not found</h1>
+  <p class="lede">That address is not in the archive. The tutorial may have been renamed or removed.</p>
+  <p>
+    <a href={pageHref('')}>Back to tutorials</a>
+    {' · '}
+    <a href={pageHref('guide')}>Editing guide</a>
+  </p>
+</Base>
