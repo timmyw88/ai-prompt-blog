@@ -39,8 +39,8 @@ draft: false
 example: false
 
 # Optional picture. Put the file in public/media, then use a path that starts with /media/
-cover: ""
-coverAlt: ""
+cover: "/media/2027-Calendar.png"
+coverAlt: "Personalised 2027 calendar created with a photo using ChatGPT"
 
 # Optional. A full YouTube link, or leave blank.
 videoUrl: "https://www.youtube.com/watch?v=qQm5S3Nvx9M"
