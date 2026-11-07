@@ -46,12 +46,12 @@ coverAlt: "Personalised 2027 Vision Board created with a photo using ChatGPT"
 videoUrl: "https://www.youtube.com/watch?v=qQm5S3Nvx9M"
 
 steps:
-  -title: “Upload your photo”
-   body: “Open ChatGPT and upload the best photo you want to use for your vision board.”
-  -title: “Paste the prompt”
-   body: “Copy the prompt below and paste it into the same chat.”
-  -title: “Generate your vision board”
-   body: “Click Send and wait for ChatGPT to finish generating your vision board.”
+  - title: “Upload your photo”
+    body: “Open ChatGPT and upload the best photo you want to use for your vision board.”
+  - title: “Paste the prompt”
+    body: “Copy the prompt below and paste it into the same chat.”
+  - title: “Generate your vision board”
+    body: “Click Send and wait for ChatGPT to finish generating your vision board.”
 
 positivePrompt: |
   Using the person in the uploaded photo, create a warm, hand-illustrated "My 2027 Vision Board" poster in a soft watercolour and coloured-pencil style, portrait orientation (2:3).
