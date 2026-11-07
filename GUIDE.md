@@ -73,7 +73,7 @@ Under the second `---` line you can write extra notes in normal sentences. That 
 6. Do not put the repository name in the path. The build adds that for a project site.
 7. Write `coverAlt` or `alt` as a real sentence about the picture.
 
-Keep files reasonably small, about 1 MB or less, so the page stays quick. The example pictures already in `public/media/examples` are labelled illustrations for this template. Replace them. Do not present them as your own results.
+Keep files reasonably small, about 1 MB or less, so the page stays quick. Upload pictures and clips you have the right to publish. Do not present someone else’s files as your own results.
 
 To show a result, replace `results: []` with a block like this:
 
@@ -102,7 +102,7 @@ Open `site.config.json`.
 - `title` is the name in the header.
 - `tagline` is the short line under the name.
 - `description` is the sentence used for search engines.
-- `author` is your name. The About and Privacy pages should match it.
+- `author` is your name. Edit About and Privacy if you want those pages to use it.
 - `social.youtube`, `social.facebook`, and `social.github` are full `https://` links, or `""` if you do not want that link.
 - `brandingNotice` is `true` while the header still says the branding is provisional. Set it to `false` after you change the name.
 - `site` is `https://your-name.github.io` with nothing after the host. Do not put the repository name here.
@@ -111,7 +111,7 @@ Open `site.config.json`.
 
 `true` and `false` in this file are JSON, so they are not in quotes. Text is in quotes.
 
-Also edit `src/pages/about.astro` and `src/pages/privacy.astro`. Both pages say they still need your words.
+About and Privacy describe this archive. They are not a personal biography and not legal advice. Edit those files when you want to add your own words.
 
 ## See the site update
 

@@ -1,10 +1,10 @@
-# Prompt Ledger
+# Ethan Prompts Online
 
 A static archive for image and video tutorials. Each tutorial is a Markdown file with a block of fields at the top. Viewers can search prompts, filter by tool, topic, and image or video, open a tutorial, and copy a prompt without losing its line breaks.
 
-The pages are built with [Astro](https://astro.build) into plain HTML, CSS, and a little JavaScript. There is no database, no sign-in, and no paid service. GitHub Pages can host the built files later. **This project has not been published to GitHub Pages.** Pushing it to your own repository and turning Pages on is still your step.
+The pages are built with [Astro](https://astro.build) into plain HTML, CSS, and a little JavaScript. There is no database, no sign-in, and no paid service. GitHub Pages can host the built files. **This project has not been published to GitHub Pages.** Turning Pages on is still a separate step.
 
-The three tutorials in `content/posts` are labelled examples. They are not lessons from a real channel.
+Published tutorials live in `content/posts`. Start a new one from `templates/new-post.md`. Set `example` to `false` for a real lesson.
 
 ## Preview
 
@@ -35,7 +35,7 @@ npm run preview
 | Pictures and clips | `public/media/` |
 | Nontechnical editing steps | `GUIDE.md` (also on the site at `/guide/`) |
 | Field list for a future app | `CONTENT_SCHEMA.md` |
-| About and privacy, both need your words | `src/pages/about.astro`, `src/pages/privacy.astro` |
+| About and privacy | `src/pages/about.astro`, `src/pages/privacy.astro` |
 | Your own ad snippet, only after you have an account | `src/components/AdSlot.astro` |
 
 `draft: true` keeps a tutorial out of the built site. On a **public** GitHub repository the file is still public. Do not commit passwords, API keys, or private photos.
@@ -62,7 +62,7 @@ Keep `content/posts`, `public/media`, and `site.config.json`. A Node API can rea
 ## Limits
 
 - Search runs in the browser over one generated list. That fits a personal archive, not a large multi-author site.
-- Link-preview images should be PNG, JPG, or WebP. The sample pictures are SVG and are not used as social images.
+- Link-preview images should be PNG, JPG, or WebP. SVG files are not used as social images.
 - On a project site, crawlers often read `robots.txt` from the host root, which this repository does not control.
 - YouTube’s own policies apply to any embedded player.
-- The About and Privacy pages are templates. They are not legal advice.
+- The Privacy page describes how this static site behaves. It is not legal advice.

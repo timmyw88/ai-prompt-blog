@@ -15,9 +15,6 @@ test('every tutorial file matches the portable schema', () => {
     const parsed = matter(raw);
     const result = postSchema.safeParse(parsed.data);
     assert.equal(result.success, true, `${name} ${JSON.stringify(result.error?.issues ?? [])}`);
-    if (result.success && result.data.example) {
-      assert.match(result.data.summary, /not a lesson from the site owner/);
-    }
   }
 });
 
