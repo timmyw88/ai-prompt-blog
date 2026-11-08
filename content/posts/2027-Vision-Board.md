@@ -39,7 +39,7 @@ draft: false
 example: false
 
 # Optional picture. Put the file in public/media, then use a path that starts with /media/
-cover: "/media/2027-Vision-Board.png"
+cover: "/media/2027-Vision-Board.jpg"
 coverAlt: "Personalised 2027 Vision Board created with a photo using ChatGPT"
 
 # Optional. A full YouTube link, or leave blank.
