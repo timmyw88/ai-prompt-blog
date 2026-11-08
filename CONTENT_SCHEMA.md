@@ -8,6 +8,7 @@ Posts stay portable. Astro reads them for this site. A future MERN app can read 
 | --- | --- |
 | `content/posts/*.md` | One tutorial per file. The file name, without `.md`, is the id and the URL slug. |
 | `templates/new-post.md` | Blank tutorial. It is not published. |
+| `/post-builder/` | Unlisted browser form that downloads a Markdown file in this shape. It does not publish. See `POST_BUILDER.md`. |
 | `public/media/**` | Images and clips. In the Markdown, refer to them as `/media/...`. |
 | `site.config.json` | Title, description, author, social links, and the ads switch. |
 | `/search-index.json` | Built list used by the archive filter. |

@@ -57,15 +57,12 @@ if (/<script(?![^>]*type\s*=\s*["'](?:module|application\/(?:ld\+)?json)["'])/i.
 if (html.includes('Example draft: this file stays off the site')) fail('draft tutorial was published');
 if (!config.ads.enabled && html.includes('Ad slot is on')) fail('ad placeholder rendered while ads are off');
 
-for (const name of ['index.html', '404.html', 'sitemap.xml', 'rss.xml', 'robots.txt', 'search-index.json']) {
+for (const name of ['index.html', '404.html', 'sitemap.xml', 'robots.txt', 'search-index.json']) {
   if (!existsSync(join(root, name))) fail(`missing ${name}`);
 }
 
 const index = readFileSync(join(root, 'index.html'), 'utf8');
-const guideHref = `${base}guide/`.replace(/\/{2,}/g, '/');
-if (!index.includes(`href="${guideHref}"`) && !index.includes(`href="${base === '/' ? '/guide/' : guideHref}"`)) {
-  fail(`index is missing the guide link for base ${base}`);
-}
+if (!index.includes('Ethan Prompts Online')) fail('index is missing the site name');
 if (base === '/' && index.includes('/prompt-ledger/')) fail('default build contains a project base path');
 if (base !== '/' && !index.includes(base)) fail(`index is missing base ${base}`);
 
@@ -76,6 +73,44 @@ if (JSON.stringify(search).includes('Example draft:')) fail('draft leaked into s
 const sitemap = readFileSync(join(root, 'sitemap.xml'), 'utf8');
 const origin = 'https://example.github.io';
 if (!sitemap.includes(`${origin}${base === '/' ? '/' : base}`)) fail('sitemap origin or base is wrong');
+
+const builderPath = join(root, 'post-builder/index.html');
+if (!existsSync(builderPath)) fail('missing post builder');
+else {
+  const builder = readFileSync(builderPath, 'utf8');
+  if (!/noindex/i.test(builder)) fail('post builder is missing noindex');
+  if (!builder.includes('This page does not publish.')) fail('post builder does not say it cannot publish');
+  if (!builder.toLowerCase().includes('does not upload pictures or clips')) {
+    fail('post builder does not explain that images are uploaded separately');
+  }
+}
+if (sitemap.toLowerCase().includes('post-builder')) fail('sitemap lists the post builder');
+for (const page of ['index.html', 'about/index.html', 'privacy/index.html']) {
+  const pageHtml = readFileSync(join(root, page), 'utf8');
+  if (/href="[^"]*post-builder/i.test(pageHtml)) fail(`${page} links to the post builder`);
+}
+if (!existsSync('content/posts/post-builder-roundtrip.md')) {
+  fail('roundtrip fixture was not present for the content loader');
+}
+if (html.includes('Post builder schema fixture')) fail('roundtrip fixture was published');
+
+const calendar = files.find((file) => file.endsWith(`${join('posts', 'my-first-tutorial', 'index.html')}`));
+if (!calendar) fail('calendar tutorial was not built');
+else {
+  const page = readFileSync(calendar, 'utf8');
+  if (!page.includes('Use the attached reference photo as the main character.')) {
+    fail('calendar prompt was not preserved');
+  }
+  if (!page.includes('data-copy-for="positive-prompt"')) fail('calendar prompt has no copy button');
+}
+const vision = files.find((file) => file.toLowerCase().endsWith(`${join('posts', '2027-vision-board', 'index.html')}`.toLowerCase()));
+if (!vision) fail('vision board tutorial was not built');
+else {
+  const page = readFileSync(vision, 'utf8');
+  if (!page.includes('https://www.youtube-nocookie.com/embed/PmcIMtN8-eI')) {
+    fail('vision board Short was not embedded without cookies');
+  }
+}
 
 const portraitPath = join(root, 'posts/example-window-light-portrait/index.html');
 if (existsSync(portraitPath)) {

@@ -1,0 +1,250 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Tutorial file builder"
+  description="Fill in a tutorial and download a Markdown file. This page does not publish, upload, or sign you in."
+  wide
+  noindex
+>
+  <p class="kicker">Unlisted tool</p>
+  <h1>Make a tutorial file</h1>
+  <p class="lede">
+    Fill in the fields, check the preview, and download a Markdown file that matches
+    <code>templates/new-post.md</code>.
+  </p>
+  <div class="builder-banner" id="builder-banner">
+    <p><strong>This page does not publish.</strong></p>
+    <ul>
+      <li>Anyone with this address can use the form. It is not a private admin page, and it does not sign you in.</li>
+      <li>What you type stays in this browser. There is no account, no upload, and no analytics.</li>
+      <li>
+        Download the <code>.md</code> file and commit it to <code>content/posts</code> yourself. Pictures and clips are a
+        separate step: add them under <code>public/media</code>, then type the <code>/media/...</code> path.
+      </li>
+    </ul>
+  </div>
+  <noscript>
+    <p class="builder-note">This form needs JavaScript. It still cannot publish a tutorial for you.</p>
+  </noscript>
+  <form id="post-builder" autocomplete="off" novalidate>
+    <div class="builder-actions" aria-label="File actions">
+      <button type="button" class="builder-primary" data-action="download">Download Markdown</button>
+      <button type="button" class="builder-secondary" data-action="copy-source">Copy Markdown</button>
+      <button type="button" class="builder-secondary" data-action="copy-preview">Copy preview</button>
+      <button type="button" class="text-button" data-action="reset">Reset form</button>
+    </div>
+    <p id="builder-status" class="builder-status" role="status"></p>
+    <div id="builder-errors" class="builder-errors" hidden tabindex="-1"></div>
+
+    <section aria-labelledby="basics-heading">
+      <h2 id="basics-heading">Basics</h2>
+      <div class="builder-grid-2">
+        <label class="field" for="title">
+          Title
+          <input id="title" name="title" type="text" required aria-required="true" maxlength="200" />
+        </label>
+        <label class="field" for="filename">
+          File name
+          <input id="filename" name="filename" type="text" spellcheck="false" autocapitalize="off" />
+        </label>
+      </div>
+      <p id="filename-preview" class="builder-help" aria-live="polite"></p>
+      <label class="field" for="summary">
+        Summary
+        <textarea id="summary" name="summary" rows="3" required aria-required="true" maxlength="500"></textarea>
+      </label>
+      <p class="builder-help">One or two sentences for the archive card and for search.</p>
+      <div class="builder-grid-2">
+        <label class="field" for="date">
+          Date
+          <input id="date" name="date" type="date" required aria-required="true" />
+        </label>
+        <label class="field" for="updated">
+          Updated
+          <input id="updated" name="updated" type="date" />
+        </label>
+      </div>
+      <p class="builder-help">The date starts as today on your computer. Leave Updated blank unless you revise the tutorial later.</p>
+      <div class="builder-grid-2">
+        <label class="field" for="tool">
+          App
+          <input id="tool" name="tool" type="text" required aria-required="true" />
+        </label>
+        <label class="field" for="model">
+          Model
+          <input id="model" name="model" type="text" />
+        </label>
+      </div>
+      <p class="builder-help">App is required. Model is optional. Leave the model blank if viewers do not need it.</p>
+      <fieldset id="category-field">
+        <legend>Result category</legend>
+        <p id="category-help" class="builder-help">
+          This is the kind of result the prompt makes. Choose Image for a picture and Video for a generated clip. A
+          YouTube lesson, including a Short, is only the recording of the tutorial. It does not make the result a video.
+        </p>
+        <label class="builder-choice">
+          <input type="radio" name="category" value="image" checked />
+          <span>Image result</span>
+        </label>
+        <label class="builder-choice">
+          <input type="radio" name="category" value="video" />
+          <span>Video result</span>
+        </label>
+      </fieldset>
+      <label class="field" for="tags">
+        Topics
+        <textarea id="tags" name="tags" rows="3" spellcheck="false"></textarea>
+      </label>
+      <p class="builder-help">Optional. One short topic per line, such as calendar or lighting.</p>
+      <fieldset id="visibility-field">
+        <legend>Visibility in the file</legend>
+        <p id="visibility-help" class="builder-help">
+          Draft is the default. Choosing “list it on the site” only writes <code>draft: false</code>. Downloading still
+          does not publish the tutorial. A public GitHub repository shows the file either way. Do not put passwords, API
+          keys, or private photos in it. The file always sets <code>example: false</code>.
+        </p>
+        <label class="builder-choice">
+          <input type="radio" name="draft" value="true" checked />
+          <span>Draft — keep it off the site</span>
+        </label>
+        <label class="builder-choice">
+          <input type="radio" name="draft" value="false" />
+          <span>List it on the site — write draft: false</span>
+        </label>
+      </fieldset>
+      <p id="visibility-live" class="builder-help" aria-live="polite"></p>
+    </section>
+
+    <section aria-labelledby="media-heading">
+      <h2 id="media-heading">Pictures, clips, and the lesson video</h2>
+      <div class="builder-note">
+        <p>
+          <strong>This page does not upload pictures or clips.</strong> Add the file in <code>public/media</code> on
+          GitHub, then type the path with the same spelling and capitalization, such as
+          <code>/media/your-file.png</code>.
+        </p>
+      </div>
+      <div class="builder-grid-2">
+        <label class="field" for="cover">
+          Cover image path
+          <input id="cover" name="cover" type="text" spellcheck="false" placeholder="/media/cover.png" />
+        </label>
+        <label class="field" for="cover-alt">
+          Cover description
+          <input id="cover-alt" name="coverAlt" type="text" />
+        </label>
+      </div>
+      <p class="builder-help">Optional. If you set a cover path, describe the picture for someone who cannot see it.</p>
+      <label class="field" for="video-url">
+        YouTube lesson link
+        <input id="video-url" name="videoUrl" type="url" inputmode="url" spellcheck="false" placeholder="https://www.youtube.com/watch?v=" />
+      </label>
+      <p id="video-help" class="builder-help">
+        Optional. Paste a watch link, a Short, or a youtu.be link. The file stores a standard watch link. This is the
+        lesson, not the result category above.
+      </p>
+    </section>
+
+    <section aria-labelledby="steps-heading">
+      <h2 id="steps-heading">Steps</h2>
+      <p class="builder-help">Optional. Keep the order the viewer should follow. A blank row is left out of the file.</p>
+      <div id="steps-field"></div>
+      <button type="button" class="builder-secondary" id="add-step">Add step</button>
+    </section>
+
+    <section aria-labelledby="prompts-heading">
+      <h2 id="prompts-heading">Prompts</h2>
+      <p class="builder-help">
+        Paste the prompt exactly. Line breaks, blank lines, quotes, colons, and <code>#</code> are kept. Leave a box
+        blank if you do not use it.
+      </p>
+      <label class="field" for="positive-prompt">
+        Positive prompt
+        <textarea id="positive-prompt" class="builder-prompt" rows="12" spellcheck="false" autocapitalize="off"></textarea>
+      </label>
+      <label class="field" for="negative-prompt">
+        Negative prompt
+        <textarea id="negative-prompt" class="builder-prompt" rows="6" spellcheck="false" autocapitalize="off"></textarea>
+      </label>
+    </section>
+
+    <section aria-labelledby="settings-heading">
+      <h2 id="settings-heading">Settings</h2>
+      <p class="builder-help">Optional. The label is the setting name, such as Steps. The value is what you used, such as 30.</p>
+      <div id="settings-field"></div>
+      <button type="button" class="builder-secondary" id="add-setting">Add setting</button>
+    </section>
+
+    <section aria-labelledby="tips-heading">
+      <h2 id="tips-heading">Tips</h2>
+      <p class="builder-help">Optional. Short reminders you actually say in the video.</p>
+      <div id="tips-field"></div>
+      <button type="button" class="builder-secondary" id="add-tip">Add tip</button>
+    </section>
+
+    <section aria-labelledby="results-heading">
+      <h2 id="results-heading">Result media</h2>
+      <p class="builder-help">
+        Optional files you already put in <code>public/media</code>. Use <code>/media/name.png</code> for a picture and
+        <code>/media/name.mp4</code> or <code>.webm</code> for a clip. The description is required when a path is set.
+        This is the prompt’s output, not the YouTube lesson.
+      </p>
+      <div id="results-field"></div>
+      <button type="button" class="builder-secondary" id="add-result">Add result</button>
+    </section>
+
+    <section aria-labelledby="notes-heading">
+      <h2 id="notes-heading">Notes</h2>
+      <label class="field" for="notes">
+        Optional Markdown
+        <textarea id="notes" rows="8" spellcheck="true"></textarea>
+      </label>
+      <p class="builder-help">
+        Shown under the fields on the tutorial page. The site escapes raw HTML, so a script tag is text, not a program.
+        This preview does the same.
+      </p>
+    </section>
+
+    <section aria-labelledby="keeping-heading">
+      <h2 id="keeping-heading">Keep a copy</h2>
+      <p class="builder-help">
+        The form is not saved automatically. You can save it in this browser, or import a Markdown file you already
+        have. Saving does not upload anything. On a shared computer, forget the saved form when you are done.
+      </p>
+      <div class="builder-actions">
+        <button type="button" class="builder-secondary" data-action="save-local">Save in this browser</button>
+        <button type="button" class="builder-secondary" data-action="restore-local" id="restore-local" disabled>
+          Restore saved form
+        </button>
+        <button type="button" class="text-button" data-action="forget-local">Forget saved form</button>
+      </div>
+      <label class="field" for="import-file">
+        Import an existing Markdown file
+        <input id="import-file" type="file" accept=".md,text/markdown,text/plain" />
+      </label>
+    </section>
+
+    <section aria-labelledby="preview-heading">
+      <h2 id="preview-heading">Preview</h2>
+      <p class="builder-help">Text only. Nothing here is uploaded, and HTML in your fields is not run.</p>
+      <div id="builder-preview" class="builder-preview"></div>
+      <h3 id="source-heading">Markdown source</h3>
+      <pre id="builder-source" class="builder-source" aria-labelledby="source-heading"></pre>
+    </section>
+
+    <div class="builder-actions" aria-label="File actions">
+      <button type="button" class="builder-primary" data-action="download">Download Markdown</button>
+      <button type="button" class="builder-secondary" data-action="copy-source">Copy Markdown</button>
+      <button type="button" class="builder-secondary" data-action="copy-preview">Copy preview</button>
+      <button type="button" class="text-button" data-action="reset">Reset form</button>
+    </div>
+  </form>
+</Base>
+
+<script>
+  import { mountPostBuilder } from '../scripts/post-builder';
+
+  mountPostBuilder();
+</script>

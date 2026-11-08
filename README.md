@@ -32,8 +32,9 @@ npm run preview
 | Site name, description, social links, ads switch | `site.config.json` |
 | Tutorials | `content/posts/*.md` |
 | Blank tutorial | `templates/new-post.md` |
+| Fill a tutorial in the browser and download Markdown | `POST_BUILDER.md` — unlisted page `/post-builder/` |
 | Pictures and clips | `public/media/` |
-| Nontechnical editing steps | `GUIDE.md` (also on the site at `/guide/`) |
+| Repo editing notes, not a public page | `GUIDE.md` |
 | Field list for a future app | `CONTENT_SCHEMA.md` |
 | About and privacy, both need your words | `src/pages/about.astro`, `src/pages/privacy.astro` |
 | Your own ad snippet, only after you have an account | `src/components/AdSlot.astro` |

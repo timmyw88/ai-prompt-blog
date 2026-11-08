@@ -25,3 +25,21 @@ export function youtubeId(input: string): string | null {
 export function youtubeEmbedUrl(id: string): string {
   return `https://www.youtube-nocookie.com/embed/${id}?rel=0`;
 }
+
+/**
+ * Blank stays blank. A recognized YouTube URL, including Shorts, youtu.be,
+ * and links without a scheme, becomes a standard watch URL. Anything else is null.
+ */
+export function canonicalYoutubeUrl(input: string): string | null {
+  const trimmed = input.trim();
+  if (!trimmed) return '';
+  const candidates = [trimmed];
+  if (!/^[a-z][a-z0-9+.-]*:/i.test(trimmed)) {
+    candidates.push(`https://${trimmed.replace(/^\/+/, '')}`);
+  }
+  for (const candidate of candidates) {
+    const id = youtubeId(candidate);
+    if (id) return `https://www.youtube.com/watch?v=${id}`;
+  }
+  return null;
+}

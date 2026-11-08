@@ -19,6 +19,7 @@ interface Props {
   published?: Date;
   updated?: Date;
   jsonLd?: Record<string, unknown>;
+  noindex?: boolean;
 }
 
 const {
@@ -30,6 +31,7 @@ const {
   published,
   updated,
   jsonLd,
+  noindex = false,
 } = Astro.props;
 const fullTitle = `${title} — ${site.title}`;
 const canonical = absoluteFromPathname(Astro.url.pathname);
@@ -44,6 +46,7 @@ const json = jsonLd ? JSON.stringify(jsonLd).replace(/</g, '\\u003c') : '';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#f3efe6" />
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
